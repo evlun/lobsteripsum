@@ -142,3 +142,8 @@ var lobsteripsum = (function() {
   };
 
 })();
+
+// use module.exports if running under Node.js
+if (typeof module === 'object') {
+  module.exports = lobsteripsum;
+}
