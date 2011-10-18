@@ -118,21 +118,26 @@
     var len;
 
     if (typeof min !== 'number') {
-      throw new Error('lobsteripsum - the first argument is required and must be a number.');
+      throw new Error('lobsteripsum - the first argument is required and '
+                    + 'must be a number.');
     }
 
     if (min < shortest) {
-      throw new Error('lobsteripsum - the first argument must be greater than or equal to the shortest word in the vocabulary (' + shortest + '.');
+      throw new Error('lobsteripsum - the first argument must be at least '
+                    + 'one greater than the shortest word in the vocabulary '
+                    + '(>=' + (shortest + 1) + '.');
     }
 
     if (typeof max === 'undefined') {
       len = Math.floor(min);
     }
     else if (typeof max !== 'number') {
-      throw new Error('lobsteripsum - the optional second argument must be a number.');
+      throw new Error('lobsteripsum - the optional second argument must be a '
+                    + 'number.');
     }
     else if (max < min) {
-      throw new Error('lobsteripsum - the optional second argument must be greater than or equal to the first argument.');
+      throw new Error('lobsteripsum - the optional second argument must be '
+                    + 'greater than or equal to the first argument.');
     }
     else {
       len = randomInteger(min, max);
