@@ -1,4 +1,4 @@
-var lobsteripsum = (function() {
+(function() {
 
   // sentence length options
   var minSentenceLength = 20,
@@ -114,7 +114,7 @@ var lobsteripsum = (function() {
   };
 
   // this function is the only thing we expose
-  return function(min, max) {
+  var lobsteripsum = function(min, max) {
     var len;
 
     if (typeof min !== 'number') {
@@ -141,9 +141,12 @@ var lobsteripsum = (function() {
     return buildParagraph(len);
   };
 
-})();
+  // use module.exports if running under node.js
+  if (typeof module === 'object') {
+    module.exports = lobsteripsum;
+  }
+  else {
+    window.lobsteripsum = lobsteripsum;
+  }
 
-// use module.exports if running under Node.js
-if (typeof module === 'object') {
-  module.exports = lobsteripsum;
-}
+})();
