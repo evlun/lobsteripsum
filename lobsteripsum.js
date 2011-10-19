@@ -122,7 +122,7 @@
                     + 'must be a number.');
     }
 
-    if (min < shortest) {
+    if (min < (shortest + 1)) {
       throw new Error('lobsteripsum - the first argument must be at least '
                     + 'one greater than the shortest word in the vocabulary '
                     + '(>=' + (shortest + 1) + '.');
