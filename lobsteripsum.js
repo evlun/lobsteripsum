@@ -146,6 +146,43 @@
     return buildParagraph(len);
   };
 
+  // regular expression which parses HTML comments
+  var commentRegex = /^\s*lobsteripsum\s+(\d+)(?:\s*-\s*(\d+))?\s*$/i;
+
+  // recursively traverses an HTML element's child nodes and replaces
+  // lobsteripsum comments
+  lobsteripsum.replaceComments = function(element) {
+    var children = element.childNodes,
+        len = (children ? children.length : 0),
+        child, matches, min, max, str, node;
+
+    for (var i = 0; i < len; i++) {
+      child = children[i];
+
+      if (child.nodeType === 1) {
+        lobsteripsum.replaceComments(child);
+      }
+      else if (child.nodeType === 8) {
+        matches = child.data.match(commentRegex);
+
+        if (matches) {
+          min = parseInt(matches[1]);
+          max = matches[2] ? parseInt(matches[2]) : min;
+
+          try {
+            str = lobsteripsum(min, max);
+          }
+          catch (e) {
+            str = e.message;
+          }
+
+          node = document.createTextNode(str);
+          element.replaceChild(node, child);
+        }
+      }
+    }
+  };
+
   // use module.exports if running under node.js
   if (typeof module === 'object') {
     module.exports = lobsteripsum;
