@@ -59,7 +59,7 @@
     }
   }
 
-  // returns a sentence (string) of the specified length
+  // returns a punctuated sentence (string) of the specified length
   var buildSentence = function(len) {
     var remaining = len - 1,
         sentence = [];
@@ -92,9 +92,9 @@
     // add sentences until there's only room for one more
     while (remaining > maxSentenceLength) {
 
-      // maxLength makes sure that the sentence will not be so long that the
-      // remaining space will be less than minSentenceLength, but also not
-      // longer than maxSentenceLength
+      // ´maxLength´ makes sure that the sentence will not be so long that the
+      // remaining space will be less than ´minSentenceLength´, but also not
+      // longer than ´maxSentenceLength´
       maxLength = Math.min((remaining - minSentenceLength), maxSentenceLength);
 
       sentenceLength = randomInteger(minSentenceLength, maxLength);
@@ -107,13 +107,13 @@
       isFirst = false;
     }
 
-    // add a sentence using up all the remaining space
+    // use up all the remaining space in the last sentence
     paragraph.push(buildSentence(remaining - (isFirst ? 0 : 1)));
 
     return paragraph.join(' ');
   };
 
-  // this function is the only thing we expose
+  // this function is going to be the only thing we expose
   var lobsteripsum = function(min, max) {
     var len;
 
@@ -173,6 +173,8 @@
             str = lobsteripsum(min, max);
           }
           catch (e) {
+            // print the error message if something went wrong (most likely due to
+            // invalid parameters)
             str = e.message;
           }
 
