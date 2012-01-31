@@ -139,31 +139,18 @@
 
   // this function is going to be the only thing we expose
   var lobsteripsum = function(min, max) {
-    var len;
+    var
+      min = parseInt(min, 10),
+      max = parseInt(max, 10),
+      len;
 
-    if (typeof min !== 'number') {
-      throw new Error('lobsteripsum - the first argument is required and '
-                    + 'must be a number.');
-    }
-
-    if (min < (shortest + 1)) {
-      throw new Error('lobsteripsum - the first argument must be at least '
-                    + 'one greater than the shortest word in the vocabulary '
-                    + '(>=' + (shortest + 1) + '.');
+    if (isNaN(min) || min < shortest + 1) {
+      return '';
     }
 
-    if (typeof max === 'undefined') {
-      len = Math.floor(min);
-    }
-    else if (typeof max !== 'number') {
-      throw new Error('lobsteripsum - the optional second argument must be a '
-                    + 'number.');
-    }
-    else if (max < min) {
-      throw new Error('lobsteripsum - the optional second argument must be '
-                    + 'greater than or equal to the first argument.');
-    }
-    else {
+    if (isNaN(max) || min > max) {
+      len = min;
+    } else {
       len = randomInteger(min, max);
     }
 
@@ -194,15 +181,7 @@
           min = parseInt(matches[1]);
           max = matches[2] ? parseInt(matches[2]) : min;
 
-          try {
-            str = lobsteripsum(min, max);
-          }
-          catch (e) {
-            // print the error message if something went wrong (most likely due
-            // to invalid parameters)
-            str = e.message;
-          }
-
+          str = lobsteripsum(min, max);
           node = document.createTextNode(str);
           element.replaceChild(node, child);
         }
