@@ -190,11 +190,9 @@
   };
 
   // use module.exports if running under node.js
-  if (typeof module === 'object') {
+  if (window) {
+    window.lobsteripsum = lobsteripsum;
+  } else {
     module.exports = lobsteripsum;
   }
-  else {
-    window.lobsteripsum = lobsteripsum;
-  }
-
 })();
