@@ -1,8 +1,9 @@
 (function() {
 
   // sentence length options
-  var minSentenceLength = 20,
-      maxSentenceLength = 140;
+  var
+    minSentenceLength = 20,
+    maxSentenceLength = 140;
 
   // convenience functions pertaining to randomness
   var randomInteger = function(min, max) {
@@ -39,35 +40,38 @@
   ];
 
   // the shortest and longest words in the vocabulary -- note that there
-  // must be a word of every length between ´shortest´ and ´longest´!
-  var shortest = 1,
-      longest = 11;
+  // must be a word of every length between `shortest` and `longest`!
+  var
+    shortest = 1,
+    longest = 11;
 
-  // ´wordsByLength´ is an object where each key is an integer and each
+  // `wordsByLength` is an object where each key is an integer and each
   // value is an array of words of that character length
   var wordsByLength = {};
 
-  // populate ´wordsByLength´
-  var l = vocabulary.length,
-      word, len;
+  // populate `wordsByLength`
+  var
+    l = vocabulary.length,
+    word, len;
+
   for (var i = 0; i < l; i++) {
     word = vocabulary[i];
     len = word.length;
 
     if (wordsByLength[len] instanceof Array) {
       wordsByLength[len].push(word);
-    }
-    else {
+    } else {
       wordsByLength[len] = [word];
     }
   }
 
   // returns a punctuated sentence (string) of the specified length
   var buildSentence = function(len) {
-    var remaining = len - 1,
-        sentence = [];
+    var
+      remaining = len - 1,
+      sentence = [],
+      curr, prev, possibleLastWords;
 
-    var curr, prev;
     while (remaining > longest) {
       do {
         curr = randomSelection(vocabulary);
@@ -79,25 +83,37 @@
       prev = curr;
     }
 
-    sentence.push(randomSelection(wordsByLength[remaining - (prev ? 1 : 0)]));
-    sentence[0] = sentence[0].charAt(0).toUpperCase() + sentence[0].substr(1);
+    // if there are no other words in the sentence, don't account for a space
+    // before the final word
+    if (typeof prev !== 'undefined') {
+      possibleLastWords = wordsByLength[remaining - 1];
+    } else {
+      possibleLastWords = wordsByLength[remaining];
+    }
 
-    return (sentence.join(' ') + '.');
+    sentence.push(randomSelection(possibleLastWords));
+
+    // capitalize the first word
+    var first = sentence[0];
+    sentence[0] = first.charAt(0).toUpperCase() + first.substr(1);
+
+    return sentence.join(' ') + '.';
   };
 
   // returns a paragraph (string) of the specified length
   var buildParagraph = function(len) {
-    var paragraph = [],
-        remaining = len,
-        isFirst = true,
-        availableLength, sentenceLength;
+    var
+      paragraph = [],
+      remaining = len,
+      isFirst = true,
+      availableLength, sentenceLength;
 
     // add sentences until there's only room for one more
     while (remaining > maxSentenceLength) {
 
-      // ´maxLength´ makes sure that the sentence will not be so long that the
-      // remaining space will be less than ´minSentenceLength´, but also not
-      // longer than ´maxSentenceLength´
+      // `maxLength` makes sure that the sentence will not be so long that the
+      // remaining space will be less than `minSentenceLength`, but also not
+      // longer than `maxSentenceLength`
       maxLength = Math.min((remaining - minSentenceLength), maxSentenceLength);
 
       sentenceLength = randomInteger(minSentenceLength, maxLength);
@@ -110,8 +126,13 @@
       isFirst = false;
     }
 
-    // use up all the remaining space in the last sentence
-    paragraph.push(buildSentence(remaining - (isFirst ? 0 : 1)));
+    // use up all the remaining space in the last sentence, but take into
+    // account the space between the last one and the previous (if there is one)
+    if (isFirst) {
+      paragraph.push(buildSentence(remaining));
+    } else {
+      paragraph.push(buildSentence(remaining - 1));
+    }
 
     return paragraph.join(' ');
   };
@@ -155,9 +176,10 @@
   // recursively traverses an HTML element's child nodes and replaces
   // lobsteripsum comments
   lobsteripsum.replaceComments = function(element) {
-    var children = element.childNodes,
-        len = (children ? children.length : 0),
-        child, matches, min, max, str, node;
+    var
+      children = element.childNodes,
+      len = (children ? children.length : 0),
+      child, matches, min, max, str, node;
 
     for (var i = 0; i < len; i++) {
       child = children[i];
