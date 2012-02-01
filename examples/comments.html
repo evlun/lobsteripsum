@@ -1,0 +1,17 @@
+<!doctype html>
+<html>
+  <head>
+    <title>lobsteripsum: comment replacement example</title>
+    <script type="text/javascript" src="../lib/lobsteripsum.js"></script>
+  </head>
+  <body onload="lobsteripsum.replaceComments(document.body)">
+    <p><code>&lt;!-- lobsteripsum 100 --&gt;</code> becomes:</p>
+    <p><!-- lobsteripsum 100 --></p>
+
+    <p><code>&lt;!-- lobsteripsum 100-140 --&gt;</code> becomes:</p>
+    <p><!-- lobsteripsum 100-140 --></p>
+
+    <p><code>&lt;!--lobsteripsum 900  - 2090--&gt;</code> becomes:</p>
+    <p><!--lobsteripsum 900  - 2090--></p>
+  </body>
+</html>

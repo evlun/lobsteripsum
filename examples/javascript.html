@@ -1,0 +1,36 @@
+<!doctype html>
+<html>
+  <head>
+    <title>lobsteripsum: &lt;script/&gt; example</title>
+    <script type="text/javascript" src="../lib/lobsteripsum.js"></script>
+    <script type="text/javascript">
+      var print = function(output) {
+        document.write(output);
+      };
+
+      // fancy sentence choreography
+      print('<pre>');
+
+      for (var i = 2; i < 25; i++) {
+        print([
+          lobsteripsum(1 * i),
+          lobsteripsum(2 * i),
+          lobsteripsum(3 * i)
+        ].join(' '));
+
+        if (i > 0) {
+          print('<br/>');
+        }
+      }
+
+      print('</pre>');
+
+      // less fancy, but perhaps more useful, usage
+      print('<p>' + lobsteripsum(50) + '</p>');
+      print('<p>' + lobsteripsum(10, 140) + '</p>');
+      print('<p>' + lobsteripsum(300, 400) + '</p>');
+    </script>
+  </head>
+  <body>
+  </body>
+</html>
