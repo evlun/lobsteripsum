@@ -1,0 +1,19 @@
+{
+  "name": "lobsteripsum",
+  "author": "Erik Lundin",
+  "description": "Straightforward placeholder text generator",
+  "keywords": ["placeholder", "text", "generator", "lorem", "ipsum"],
+  "version": "0.0.1",
+  "homepage": "http://github.com/mjor/lobsteripsum",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/mjor/lobsteripsum.git"
+  },
+  "engines": {
+    "node": ">=0.2.0"
+  },
+  "licenses": [{
+    "type": "MIT",
+    "url": "http://github.com/mjor/lobsteripsum/raw/master/LICENSE"
+  }]
+}
